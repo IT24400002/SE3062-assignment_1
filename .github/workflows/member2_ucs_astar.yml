@@ -1,0 +1,41 @@
+name: Member 2 - UCS & A* Search (Q3 & Q4)
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  pull_request:
+    branches: [ "main", "master" ]
+  workflow_dispatch:
+
+jobs:
+  test_m2:
+    name: Test UCS (Q3) & A* Search (Q4)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📥 Checkout Code
+        uses: actions/checkout@v4
+
+      - name: 🐍 Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: 📦 Install Dependencies
+        run: pip install numpy matplotlib
+
+      - name: 🧪 Run Q3 (Uniform Cost Search)
+        run: |
+          if [ -f "autograder.py" ]; then
+            python autograder.py -q q3
+          elif [ -f "Group_Project/search/autograder.py" ]; then
+            cd Group_Project/search && python autograder.py -q q3
+          fi
+
+      - name: 🧪 Run Q4 (A* Search)
+        run: |
+          if [ -f "autograder.py" ]; then
+            python autograder.py -q q4
+          elif [ -f "Group_Project/search/autograder.py" ]; then
+            cd Group_Project/search && python autograder.py -q q4
+          fi

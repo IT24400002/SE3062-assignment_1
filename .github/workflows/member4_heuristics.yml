@@ -1,0 +1,41 @@
+name: Member 4 - Heuristics Design (Q6 & Q7)
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  pull_request:
+    branches: [ "main", "master" ]
+  workflow_dispatch:
+
+jobs:
+  test_m4:
+    name: Test Corners Heuristic (Q6) & Food Heuristic (Q7)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📥 Checkout Code
+        uses: actions/checkout@v4
+
+      - name: 🐍 Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: 📦 Install Dependencies
+        run: pip install numpy matplotlib
+
+      - name: 🧪 Run Q6 (Corners Heuristic)
+        run: |
+          if [ -f "autograder.py" ]; then
+            python autograder.py -q q6
+          elif [ -f "Group_Project/search/autograder.py" ]; then
+            cd Group_Project/search && python autograder.py -q q6
+          fi
+
+      - name: 🧪 Run Q7 (Food Heuristic)
+        run: |
+          if [ -f "autograder.py" ]; then
+            python autograder.py -q q7
+          elif [ -f "Group_Project/search/autograder.py" ]; then
+            cd Group_Project/search && python autograder.py -q q7
+          fi
